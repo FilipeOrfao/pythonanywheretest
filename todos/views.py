@@ -33,7 +33,11 @@ def detailTodo(request, pk):
     return Response(serializer.data)
 
 
-@api_view(["GET"])
-def rest_test(request):
-    # print(request.data['other_thing'])
-    return Response({"thing": "ok", **request.data})
+@api_view(["POST"])
+def createTodo(request):
+    serializer = TodoSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+
+    return Response(serializer.data)
