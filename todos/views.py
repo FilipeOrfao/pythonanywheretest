@@ -2,6 +2,7 @@ from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+
 from .models import Todo
 from .serializers import TodoSerializer
 
@@ -33,6 +34,11 @@ def detailTodo(request, pk):
     return Response(serializer.data)
 
 
+class CreateTodo(generics.ListCreateAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+
 @api_view(["POST"])
 def createTodo(request):
     serializer = TodoSerializer(data=request.data)
@@ -41,3 +47,8 @@ def createTodo(request):
         serializer.save()
 
     return Response(serializer.data)
+
+
+class EditTodo(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
