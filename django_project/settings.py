@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-z7quk#_4(0_d*wn%^ldrpq&q_p#@xg%@jyx1&24s@@rd=^ulx&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["filipeorfao.pythonanywhere.com", "127.0.0.1"]
 
 # Application definition
 
@@ -37,14 +37,34 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     # 3rd party
     "rest_framework",
     "corsheaders",
+    "rest_framework.authtoken",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
     # local
     "todos.apps.TodosConfig",
 ]
 
-REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"]}
+# REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"]}
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        # this is the default we just made it explicit
+        # "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
+
+# testuser fBWEzu9urm3dPzH
+# testuser2 testuser222222 7b7fc29e4394c8bf68db0ba93f0df0611cccd855
+# testuser3 thisisuser3password e834780c0d16de8026e647ecb8050454de26d6b4 http://127.0.0.1:8000/api/dj-rest-auth/registrationaccount-confirm-email/Mg:1obLwV:UpqeVv5r1uqL4sKLkIlAzxw2z87PysSbpNyhNJ36vT4/
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -77,10 +97,15 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
             ],
         },
     },
 ]
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+SITE_ID = 1
 
 WSGI_APPLICATION = "django_project.wsgi.application"
 

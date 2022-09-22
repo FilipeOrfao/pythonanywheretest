@@ -1,16 +1,18 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 
 from .models import Todo
 from .serializers import TodoSerializer
+from .persimmions import IsAuthorOrReadOnly
 
 
 # Create your views here.
 
 
 class ListTodo(generics.ListAPIView):
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
 
@@ -50,5 +52,7 @@ def createTodo(request):
 
 
 class EditTodo(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
