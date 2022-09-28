@@ -10,4 +10,6 @@ urlpatterns = [
     path("class_create_todo/", views.CreateTodo.as_view(), name="create_todo"),
     path("func_create_todo/", views.createTodo, name="create_todo"),
     path("class_edit_todo/<int:pk>", views.EditTodo.as_view(), name="edit_todo"),
+    path("users/", views.UserList.as_view(), name="user_list"),
+    path("users/<int:pk>/", views.UserDetail.as_view(), name="user"),
 ]

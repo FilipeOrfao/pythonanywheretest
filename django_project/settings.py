@@ -62,7 +62,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-# testuser fBWEzu9urm3dPzH
+# testuser fBWEzu9urm3dPzH 10baee295c032101ca6eb57f6144b290c069e026
 # testuser2 testuser222222 7b7fc29e4394c8bf68db0ba93f0df0611cccd855
 # testuser3 thisisuser3password e834780c0d16de8026e647ecb8050454de26d6b4 http://127.0.0.1:8000/api/dj-rest-auth/registrationaccount-confirm-email/Mg:1obLwV:UpqeVv5r1uqL4sKLkIlAzxw2z87PysSbpNyhNJ36vT4/
 
@@ -78,7 +78,30 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+
+# CORS_ALLOW_HEADERS = [
+#     "accept",
+#     "accept-encoding",
+#     "authorization",
+#     "content-type",
+#     "dnt",
+#     "origin",
+#     "user-agent",
+#     "x-csrftoken",
+#     "x-requested-with",
+# ]
 
 # CORS_ALLOWED_ORIGINS = ("http://localhost:3000", "http://localhost:8000")
 

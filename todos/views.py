@@ -1,10 +1,11 @@
+from django.contrib.auth import get_user_model
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 
 from .models import Todo
-from .serializers import TodoSerializer
+from .serializers import TodoSerializer, UserSerializer
 from .persimmions import IsAuthorOrReadOnly
 
 
@@ -56,3 +57,13 @@ class EditTodo(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
+
+
+class UserList(generics.ListAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer
