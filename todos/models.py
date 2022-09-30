@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from numpy import empty, require
 
 # Create your models here.
 
@@ -11,7 +12,7 @@ class Todo(models.Model):
     done = models.BooleanField(default=False)
     favorite = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now=True)
-    date_ticked = models.DateTimeField(null=True)
+    date_ticked = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.title

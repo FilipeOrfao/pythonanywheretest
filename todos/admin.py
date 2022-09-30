@@ -1,4 +1,3 @@
-from unittest.mock import AsyncMockMixin
 from django.contrib import admin
 
 from .models import Todo
@@ -7,7 +6,8 @@ from .models import Todo
 
 
 class TodoAdmin(admin.ModelAdmin):
-    list_display = ("title", "body")
+    list_display = ("title", "body", "user", "user_id")
+    # pass
 
 
 admin.site.register(Todo, TodoAdmin)
