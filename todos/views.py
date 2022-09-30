@@ -51,6 +51,8 @@ class ListTodo(generics.ListAPIView):
 #         serializer = TodoSerializer(snippet, many=True)
 #         return serializer.data
 
+# jaslkjf;lakj
+
 
 @api_view(["GET"])
 @permission_classes([IsAuthorOrReadOnly])
