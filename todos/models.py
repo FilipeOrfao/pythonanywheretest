@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-from numpy import empty, require
+
 
 # Create your models here.
 
@@ -16,3 +16,15 @@ class Todo(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Exercise(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    reps = models.IntegerField()
+    sets = models.IntegerField()
+    weight = models.FloatField()
+    time = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.execise

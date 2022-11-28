@@ -1,11 +1,12 @@
 from django.contrib.auth import get_user_model
+from django.shortcuts import redirect
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Todo
-from .serializers import TodoSerializer, UserSerializer
+from .models import Todo, Exercise
+from .serializers import TodoSerializer, UserSerializer, ExerciseSerializer
 
 from .persimmions import IsAuthorOrReadOnly
 
@@ -50,8 +51,6 @@ class ListTodo(generics.ListAPIView):
 #         snippet = self.get_object(user_id)
 #         serializer = TodoSerializer(snippet, many=True)
 #         return serializer.data
-
-# jaslkjf;lakj
 
 
 @api_view(["GET"])
@@ -104,3 +103,36 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
+
+
+# exercise
+# @api_view(["GET"])
+# def redirect_to_frontend(request, exercise_name):
+# this is for the nfc thing
+# need to send variable name to the front end but don't know how to to that
+# return redirect(f"http://localhost:5173/fefe/todo/", {"thing": exercise_name})
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthorOrReadOnly])
+def list_all_exercises(request, user_id):
+    exercises = Exercise.objects.filter(user_id=user_id)
+    serializer = ExerciseSerializer(exercises, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["POST"])
+def create_exercise(request):
+    serializer = ExerciseSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+
+    return Response({"Error": "Invalid input"})
+
+
+class CRUD_exercise(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthorOrReadOnly]
+    queryset = Exercise.objects.all()
+    serializer_class = ExerciseSerializer

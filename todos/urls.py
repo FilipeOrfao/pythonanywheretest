@@ -22,4 +22,15 @@ urlpatterns = [
     path("token/", views.MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("token/refresh/verify/", TokenVerifyView.as_view(), name="token_verify"),
+    # exercise
+    # path("redirect/<str:exercise_name>", views.redirect_to_frontend, name="redirect"),
+    path(
+        "list_exercises/<int:user_id>", views.list_all_exercises, name="list_exercises"
+    ),
+    path("create_exercise/", views.create_exercise, name="create_exercise"),
+    path(
+        "CRUD_exercise/<int:pk>/",
+        views.CRUD_exercise.as_view(),
+        name="CRUD_exercise",
+    ),
 ]
